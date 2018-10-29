@@ -53,7 +53,7 @@ class Listener(Thread):
                     for addr in nodes:
                         self.sock.sendto(data, (addr, COMMUNICATION_PORT))
                     logging.info('running: ' + str(data[8:], 'ascii'))
-                    call(str(data[8:], 'ascii'))
+                    call(str(data[8:], 'ascii').split(' '))
                     executed.add(int(data[0:8]))
                 else:
                     logging.info('loopback')
@@ -67,7 +67,7 @@ def main():
     listener = Listener()
     probe = Probe()
     logging.info('started')
-    send('time')
+    send('ping 4.2.2.4 -c 4')
 
 
 if __name__ == '__main__':
